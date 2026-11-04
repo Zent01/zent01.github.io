@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,7 @@
 
 <title>PALERMO · Zent</title>
 
-<meta name="description" content="PALERMO: Μια νύχτα στο Παλέρμο. Το κλασικό παιχνίδι Μαφίας για παρέες, με τον αφηγητή μέσα στο κινητό.">
+<meta name="description" content="PALERMO: One night in Palermo. The classic Mafia party game, with the narrator inside your phone.">
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
@@ -359,6 +359,43 @@ footer {
   letter-spacing: .2em;
 }
 
+/* Language switch */
+
+.lang {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 20;
+  display: flex;
+  border: 1px solid var(--line);
+  background: rgba(0,0,0,.35);
+}
+
+.lang button {
+  font-family: 'Cinzel', serif;
+  font-size: .7rem;
+  letter-spacing: .14em;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.lang button + button {
+  border-left: 1px solid var(--line);
+}
+
+.lang button:hover {
+  color: var(--gold2);
+}
+
+.lang button[aria-pressed="true"] {
+  color: var(--fg);
+  background: rgba(169,31,43,.35);
+}
+
 /* Mobile */
 
 @media(max-width: 480px) {
@@ -393,20 +430,25 @@ footer {
 <div class="rain"></div>
 <div class="ambient"></div>
 
+<div class="lang" role="group" aria-label="Language">
+  <button type="button" data-lang="el" aria-pressed="false">Ελληνικά</button>
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+</div>
+
 <main>
 
-  <p class="pre">Μια νύχτα στο</p>
+  <p class="pre" data-t="pre">One night in</p>
 
   <h1>PALERMO</h1>
 
   <div class="rule"></div>
 
-  <p class="subtitle">
-    Κάθε πόλη κρύβει τα μυστικά της.<br>
-    Κάθε νύχτα έχει τους ενόχους της.
+  <p class="subtitle" data-t="subtitle">
+    Every city hides its secrets.<br>
+    Every night has its guilty ones.
   </p>
 
-  <p class="en" lang="en">
+  <p class="en" data-t="tagline">
     The classic Mafia party game, with the narrator inside your phone.
   </p>
 
@@ -415,21 +457,21 @@ footer {
   </div>
 
   <nav>
-    <a href="privacy.html">
-      Πολιτική απορρήτου · Privacy
+    <a href="privacy.html#en" id="privacy" data-t="privacy">
+      Privacy Policy
     </a>
   </nav>
 
   <div class="contact">
-    <div class="lbl">Επικοινωνία · Contact</div>
+    <div class="lbl" data-t="contact">Contact</div>
 
     <div class="mail">
       <a href="mailto:bonzaras10@gmail.com">
         bonzaras10@gmail.com
       </a>
 
-      <button type="button" id="copy">
-        Αντιγραφή
+      <button type="button" id="copy" data-t="copy">
+        Copy
       </button>
     </div>
   </div>
@@ -442,15 +484,69 @@ footer {
 
 <script>
 (function () {
+  var T = {
+    en: {
+      pre: 'One night in',
+      subtitle: 'Every city hides its secrets.<br>Every night has its guilty ones.',
+      tagline: 'The classic Mafia party game, with the narrator inside your phone.',
+      privacy: 'Privacy Policy',
+      contact: 'Contact',
+      copy: 'Copy',
+      copied: 'Copied ✓',
+      description: 'PALERMO: One night in Palermo. The classic Mafia party game, with the narrator inside your phone.'
+    },
+    el: {
+      pre: 'Μια νύχτα στο',
+      subtitle: 'Κάθε πόλη κρύβει τα μυστικά της.<br>Κάθε νύχτα έχει τους ενόχους της.',
+      tagline: 'Το κλασικό παιχνίδι Μαφίας για παρέες, με τον αφηγητή μέσα στο κινητό.',
+      privacy: 'Πολιτική απορρήτου',
+      contact: 'Επικοινωνία',
+      copy: 'Αντιγραφή',
+      copied: 'Αντιγράφηκε ✓',
+      description: 'PALERMO: Μια νύχτα στο Παλέρμο. Το κλασικό παιχνίδι Μαφίας για παρέες, με τον αφηγητή μέσα στο κινητό.'
+    }
+  };
+  var KEY = 'palermo-lang';
+  var lang = 'en';
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved === 'el' || saved === 'en') lang = saved;
+  } catch (e) {}
+
+  function apply(l) {
+    lang = l;
+    var d = T[l];
+    document.documentElement.lang = l;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function (el) {
+      var k = el.getAttribute('data-t');
+      if (k === 'subtitle') el.innerHTML = d[k]; else el.textContent = d[k];
+    });
+    document.getElementById('privacy').setAttribute('href', 'privacy.html#' + l);
+    var meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute('content', d.description);
+    Array.prototype.forEach.call(document.querySelectorAll('.lang button'), function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-lang') === l ? 'true' : 'false');
+    });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.lang button'), function (b) {
+    b.addEventListener('click', function () {
+      var l = b.getAttribute('data-lang');
+      try { localStorage.setItem(KEY, l); } catch (e) {}
+      apply(l);
+    });
+  });
+  apply(lang);
+
   var btn = document.getElementById('copy');
   var mail = 'bonzaras10@gmail.com';
 
   function ok() {
-    btn.textContent = 'Αντιγράφηκε ✓';
+    btn.textContent = T[lang].copied;
     btn.classList.add('done');
 
     setTimeout(function () {
-      btn.textContent = 'Αντιγραφή';
+      btn.textContent = T[lang].copy;
       btn.classList.remove('done');
     }, 1800);
   }
