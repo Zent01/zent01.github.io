@@ -3,100 +3,630 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#e8e1d3">
 <title>PALERMO — Πολιτική απορρήτου / Privacy Policy</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Oswald:wght@400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
+
 <style>
-  :root { --bg: #0f0d0b; --fg: #e9e2d6; --muted: #a89f90; --gold: #d8b25a; --line: #2c2620; }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
-  h1 { font-size: 1.7rem; margin: 0 0 4px; color: var(--gold); letter-spacing: .04em; }
-  h2 { font-size: 1.15rem; margin: 28px 0 6px; color: var(--gold); }
-  p, li { color: var(--fg); }
-  .meta { color: var(--muted); margin: 0 0 20px; }
-  nav { margin: 0 0 24px; }
-  nav a { color: var(--gold); margin-right: 16px; }
-  a { color: var(--gold); }
-  hr { border: 0; border-top: 1px solid var(--line); margin: 48px 0; }
-  ul { padding-left: 20px; }
+:root{
+  --paper:#e8e1d3;
+  --paper-dark:#ddd4c2;
+  --ink:#1c1712;
+  --ink-soft:#4a4136;
+  --ink-dim:#8a7d6b;
+  --red:#9b1c22;
+  --line:rgba(28,23,18,.18);
+  --line-strong:rgba(28,23,18,.4);
+
+  --f-type:'Special Elite','Courier New',monospace;
+  --f-mono:'Courier Prime','Courier New',monospace;
+  --f-cond:'Oswald','Arial Narrow',sans-serif;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:#1a1510;
+  color:var(--ink);
+  font-family:var(--f-mono);
+  font-size:15px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:clamp(16px,4vw,48px) clamp(12px,3vw,32px);
+}
+
+/* document */
+.doc{
+  position:relative;
+  width:100%;
+  max-width:780px;
+  background:var(--paper);
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(155,28,34,.035) 0%, transparent 22%),
+    radial-gradient(circle at 85% 75%, rgba(28,23,18,.05) 0%, transparent 30%),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(28,23,18,.012) 2px, rgba(28,23,18,.012) 3px);
+  box-shadow:
+    0 2px 0 rgba(0,0,0,.1),
+    0 30px 80px -20px rgba(0,0,0,.8),
+    0 0 0 1px rgba(28,23,18,.15);
+  padding:clamp(28px,6vw,64px) clamp(22px,6vw,72px) clamp(36px,6vw,64px);
+}
+
+.doc::before{
+  content:"";
+  position:absolute;
+  top:-6px;left:0;right:0;
+  height:8px;
+  background:
+    linear-gradient(135deg, transparent 50%, var(--paper) 51%) 0 0/12px 12px repeat-x,
+    linear-gradient(45deg, var(--paper) 50%, transparent 51%) 0 0/12px 12px repeat-x;
+  transform:rotate(180deg);
+}
+
+/* classified stamp */
+.stamp{
+  position:absolute;
+  top:clamp(28px,6vw,64px);
+  right:clamp(22px,6vw,72px);
+  font-family:var(--f-cond);
+  font-weight:600;
+  font-size:11px;
+  letter-spacing:.4em;
+  text-transform:uppercase;
+  color:var(--red);
+  border:2px solid var(--red);
+  padding:8px 14px 7px 17px;
+  transform:rotate(6deg);
+  opacity:.82;
+  z-index:3;
+  mix-blend-mode:multiply;
+  box-shadow:inset 0 0 0 1px rgba(155,28,34,.25);
+}
+.stamp::after{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  background:repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(155,28,34,.06) 3px, rgba(155,28,34,.06) 4px);
+  pointer-events:none;
+}
+
+/* header strip */
+.head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:16px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--line-strong);
+  font-family:var(--f-cond);
+  font-size:10.5px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  margin-bottom:clamp(24px,4vw,36px);
+}
+.head span:first-child{font-weight:600;color:var(--ink)}
+
+/* file meta grid */
+.fileno{
+  display:grid;
+  grid-template-columns:auto 1fr auto 1fr;
+  gap:0 clamp(12px,3vw,28px);
+  margin-bottom:clamp(28px,5vw,44px);
+  font-family:var(--f-mono);
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  align-items:baseline;
+}
+.fileno .k{color:var(--ink-dim);white-space:nowrap}
+.fileno .v{
+  color:var(--ink);
+  font-weight:700;
+  border-bottom:1px dotted var(--line-strong);
+  padding-bottom:2px;
+}
+.fileno .v.red{color:var(--red)}
+
+/* title block */
+.title-block{
+  margin-bottom:clamp(24px,4vw,36px);
+}
+.eyebrow{
+  font-family:var(--f-type);
+  font-size:clamp(12px,1.5vw,14px);
+  letter-spacing:.06em;
+  color:var(--ink-soft);
+  margin:0 0 clamp(8px,1.4vw,12px);
+}
+.eyebrow::before{content:"// ";color:var(--red);font-weight:700}
+
+h1{
+  font-family:var(--f-cond);
+  font-weight:600;
+  font-size:clamp(2.2rem,7vw,3.6rem);
+  line-height:.95;
+  letter-spacing:-.01em;
+  text-transform:uppercase;
+  margin:0;
+  color:var(--ink);
+}
+h1 .thin{
+  display:block;
+  font-family:var(--f-type);
+  font-weight:400;
+  font-size:clamp(13px,1.6vw,15px);
+  letter-spacing:.06em;
+  text-transform:none;
+  color:var(--ink-soft);
+  margin-top:10px;
+}
+
+/* nav — file references */
+.nav-refs{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  font-family:var(--f-cond);
+  font-size:10.5px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  margin:clamp(20px,3vw,28px) 0 clamp(24px,4vw,36px);
+  padding-bottom:12px;
+  border-bottom:1px solid var(--line);
+}
+.nav-refs a{
+  color:var(--ink-dim);
+  text-decoration:none;
+  transition:color .2s;
+  padding-bottom:2px;
+  border-bottom:1px solid transparent;
+}
+.nav-refs a:hover{color:var(--red);border-color:var(--red)}
+
+/* intro paragraph */
+.intro{
+  font-family:var(--f-mono);
+  font-size:15px;
+  line-height:1.75;
+  color:var(--ink);
+  margin:0 0 clamp(28px,5vw,44px);
+  padding:clamp(16px,3vw,22px) clamp(16px,3vw,22px);
+  border-left:3px solid var(--red);
+  background:rgba(155,28,34,.03);
+}
+.intro .meta-line{
+  font-family:var(--f-cond);
+  font-size:10.5px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  margin:0 0 12px;
+  display:block;
+}
+
+/* articles / sections */
+.article{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:clamp(12px,3vw,28px);
+  padding:clamp(20px,3.5vw,30px) 0;
+  border-top:1px solid var(--line);
+}
+.article:last-child{border-bottom:1px solid var(--line)}
+
+.article-no{
+  font-family:var(--f-cond);
+  font-weight:600;
+  font-size:clamp(28px,4vw,40px);
+  line-height:1;
+  color:var(--red);
+  opacity:.5;
+  letter-spacing:-.02em;
+  padding-top:2px;
+  min-width:1.6em;
+}
+
+.article-body h2{
+  font-family:var(--f-cond);
+  font-weight:600;
+  font-size:clamp(1.05rem,2vw,1.25rem);
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:var(--ink);
+  margin:0 0 10px;
+}
+
+.article-body p{
+  margin:0 0 12px;
+  color:var(--ink-soft);
+  font-size:14px;
+  line-height:1.75;
+}
+.article-body p:last-child{margin-bottom:0}
+
+.article-body ul{
+  margin:0 0 14px;
+  padding:0;
+  list-style:none;
+}
+.article-body ul li{
+  position:relative;
+  padding-left:22px;
+  margin-bottom:8px;
+  color:var(--ink-soft);
+  font-size:14px;
+  line-height:1.65;
+}
+.article-body ul li::before{
+  content:"→";
+  position:absolute;
+  left:0;
+  color:var(--red);
+  font-weight:700;
+  font-size:13px;
+}
+
+.article-body a{
+  color:var(--ink);
+  text-decoration:none;
+  font-weight:700;
+  border-bottom:1px solid var(--ink);
+  padding-bottom:1px;
+  transition:color .2s,border-color .2s;
+  word-break:break-word;
+}
+.article-body a:hover{color:var(--red);border-color:var(--red)}
+
+/* special callout (consent / important) */
+.callout{
+  margin:14px 0;
+  padding:14px 16px;
+  border:1px solid rgba(155,28,34,.4);
+  background:rgba(155,28,34,.04);
+  font-family:var(--f-type);
+  font-size:13px;
+  line-height:1.65;
+  color:var(--ink);
+}
+.callout::before{
+  content:"NOTE — ";
+  font-family:var(--f-cond);
+  font-weight:600;
+  font-size:10px;
+  letter-spacing:.2em;
+  color:var(--red);
+}
+
+/* signature / footer */
+.signature{
+  margin-top:clamp(32px,6vw,52px);
+  padding-top:clamp(20px,3vw,28px);
+  border-top:1px solid var(--line-strong);
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:clamp(16px,4vw,32px);
+  align-items:end;
+}
+.sig-name{
+  font-family:var(--f-type);
+  font-size:clamp(22px,3vw,28px);
+  color:var(--ink);
+  transform:rotate(-2deg);
+  display:inline-block;
+  border-bottom:1px solid var(--line-strong);
+  padding-bottom:4px;
+  line-height:1.2;
+  margin-bottom:8px;
+}
+.sig-role{
+  font-family:var(--f-cond);
+  font-size:10px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  margin:0;
+}
+.footnote{
+  font-family:var(--f-mono);
+  font-style:italic;
+  font-size:11.5px;
+  line-height:1.6;
+  color:var(--ink-dim);
+  text-align:right;
+  margin:0;
+  max-width:26ch;
+}
+
+.corner-mark{
+  position:absolute;
+  bottom:0;left:0;
+  width:60px;height:60px;
+  overflow:hidden;
+  pointer-events:none;
+}
+.corner-mark::before{
+  content:"";
+  position:absolute;
+  bottom:-1px;left:-1px;
+  width:60px;height:60px;
+  border-left:2px solid var(--red);
+  border-bottom:2px solid var(--red);
+  opacity:.4;
+}
+
+/* separator between languages */
+hr.lang-sep{
+  border:0;
+  border-top:3px double var(--ink);
+  margin:clamp(48px,8vw,72px) 0;
+  position:relative;
+}
+hr.lang-sep::after{
+  content:"§";
+  position:absolute;
+  top:-.62em;left:50%;
+  transform:translateX(-50%);
+  background:var(--paper);
+  padding:0 12px;
+  font-family:var(--f-cond);
+  font-size:18px;
+  color:var(--red);
+  font-weight:600;
+}
+
+/* section anchor language blocks */
+.lang-section{padding-top:4px}
+.lang-section .section-header{
+  font-family:var(--f-cond);
+  font-size:10.5px;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  margin:0 0 20px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+}
+
+/* responsive */
+@media(max-width:640px){
+  .fileno{grid-template-columns:auto 1fr;gap:8px 16px}
+  .stamp{
+    position:static;
+    display:inline-block;
+    margin-bottom:20px;
+    transform:rotate(-3deg);
+  }
+  .article{grid-template-columns:1fr;gap:6px}
+  .article-no{font-size:22px;padding-top:0}
+  .signature{grid-template-columns:1fr}
+  .footnote{text-align:left}
+  h1{letter-spacing:-.02em}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
 </style>
 </head>
+
 <body>
-<main>
-<nav><a href="#el">Ελληνικά</a><a href="#en">English</a></nav>
 
-<section id="el" lang="el">
-<h1>PALERMO — Πολιτική απορρήτου</h1>
-<p class="meta">Ισχύει από 1 Νοεμβρίου 2026 · Προγραμματιστής: Zent · Επικοινωνία: <a href="mailto:bonzaras10@gmail.com">bonzaras10@gmail.com</a></p>
+<div class="doc">
 
-<p>Το PALERMO («Μια νύχτα στο Παλέρμο») είναι παιχνίδι για παρέες που παίζεται σε ένα κινητό. Αυτή η πολιτική εξηγεί ποια δεδομένα χρησιμοποιεί η εφαρμογή και ποιος τα επεξεργάζεται.</p>
+  <div class="stamp">Confidential</div>
 
-<h2>Τι κρατάμε εμείς</h2>
-<p>Τίποτα. Η εφαρμογή δεν έχει λογαριασμούς χρηστών και δεν στέλνει δεδομένα σε δικό μας server. Τα ονόματα των παικτών και οι ρυθμίσεις αποθηκεύονται μόνο στη συσκευή σου και σβήνονται όταν απεγκαταστήσεις την εφαρμογή ή καθαρίσεις τα δεδομένα της. Τις αγορές σου τις καταγράφει το Google Play, ώστε να τις επαναφέρεις σε νέα συσκευή.</p>
+  <div class="head">
+    <span>Zent · Interactive Division</span>
+    <span>Doc. No. 07-PP / MMXXVI</span>
+  </div>
 
-<h2>Διαφημίσεις (Google AdMob)</h2>
-<p>Η δωρεάν έκδοση δείχνει διαφημίσεις μέσω του Google AdMob. Το SDK της Google συλλέγει αυτόματα και μοιράζεται με την Google:</p>
-<ul>
-  <li>το αναγνωριστικό διαφήμισης (Advertising ID) και το App set ID της συσκευής,</li>
-  <li>τη διεύθυνση IP, από την οποία βγαίνει κατά προσέγγιση η τοποθεσία,</li>
-  <li>αλληλεπιδράσεις με την εφαρμογή και τις διαφημίσεις (π.χ. ανοίγματα, πατήματα, προβολές),</li>
-  <li>διαγνωστικά στοιχεία απόδοσης (π.χ. χρόνος εκκίνησης, κολλήματα).</li>
-</ul>
-<p>Τα δεδομένα χρησιμοποιούνται για την προβολή και τη μέτρηση διαφημίσεων, για στατιστικά και για την πρόληψη απάτης, και μεταφέρονται κρυπτογραφημένα (TLS). Στον Ευρωπαϊκό Οικονομικό Χώρο, στο Ηνωμένο Βασίλειο και στην Ελβετία η εφαρμογή ζητά πρώτα τη συναίνεσή σου με τη φόρμα της Google. Μπορείς να την αλλάξεις όποτε θέλεις από τις Ρυθμίσεις της εφαρμογής → «Επιλογές απορρήτου διαφημίσεων». Μπορείς επίσης να μηδενίσεις ή να διαγράψεις το αναγνωριστικό διαφήμισης από τις ρυθμίσεις του Android. Δες πώς η Google χρησιμοποιεί τα δεδομένα: <a href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</a>.</p>
-<p>Όποιος αγοράσει Premium, Ultimate ή «Χωρίς διαφημίσεις» δεν βλέπει διαφημίσεις, οπότε το AdMob δεν φορτώνει διαφημίσεις για αυτόν.</p>
+  <div class="fileno">
+    <span class="k">Subject:</span>
+    <span class="v">Privacy Policy</span>
+    <span class="k">Effective:</span>
+    <span class="v red">01 · XI · 2026</span>
+  </div>
 
-<h2>Αγορές</h2>
-<p>Οι αγορές γίνονται μέσω του Google Play. Εμείς δεν βλέπουμε ούτε κρατάμε στοιχεία πληρωμής. Ισχύει η <a href="https://policies.google.com/privacy">πολιτική απορρήτου της Google</a>.</p>
+  <div class="title-block">
+    <p class="eyebrow">PALERMO — Legal Notice</p>
+    <h1>Πολιτική απορρήτου
+      <span class="thin">Privacy Policy — bilingual document</span>
+    </h1>
+  </div>
 
-<h2>Αναφορές σφαλμάτων</h2>
-<p>Αν η εφαρμογή κλείσει απότομα, η περιγραφή του σφάλματος αποθηκεύεται μόνο στη συσκευή σου και σου εμφανίζεται στο επόμενο άνοιγμα. Δεν στέλνεται πουθενά, εκτός αν την αντιγράψεις και μας τη στείλεις εσύ.</p>
+  <nav class="nav-refs" aria-label="Languages">
+    <a href="#el">§ Ελληνικά</a>
+    <a href="#en">§ English</a>
+  </nav>
 
-<h2>Παιδιά</h2>
-<p>Η εφαρμογή δεν απευθύνεται σε παιδιά κάτω των 13 ετών και δεν συλλέγουμε εν γνώσει μας δεδομένα παιδιών.</p>
+  <!-- ============ GREEK ============ -->
+  <section id="el" class="lang-section" lang="el">
 
-<h2>Τα δικαιώματά σου</h2>
-<p>Επειδή δεν κρατάμε δεδομένα σου, για τα δεδομένα διαφημίσεων απευθύνσου στην Google ή χρησιμοποίησε τις επιλογές παραπάνω. Για κάθε ερώτηση γράψε μας στο <a href="mailto:bonzaras10@gmail.com">bonzaras10@gmail.com</a>.</p>
+    <div class="section-header">
+      <span>Ελληνικά</span>
+      <span>01 / 02</span>
+    </div>
 
-<h2>Αλλαγές</h2>
-<p>Αν αλλάξει κάτι, θα ενημερώσουμε αυτή τη σελίδα και την ημερομηνία στην αρχή της.</p>
-</section>
+    <div class="intro">
+      <span class="meta-line">Ισχύει από 1 Νοεμβρίου 2026 · Προγραμματιστής: Zent</span>
+      Το PALERMO («Μια νύχτα στο Παλέρμο») είναι παιχνίδι για παρέες που παίζεται σε ένα κινητό. Αυτή η πολιτική εξηγεί ποια δεδομένα χρησιμοποιεί η εφαρμογή και ποιος τα επεξεργάζεται. Επικοινωνία: <a href="mailto:bonzaras10@gmail.com">bonzaras10@gmail.com</a>
+    </div>
 
-<hr>
+    <article class="article">
+      <div class="article-no">01</div>
+      <div class="article-body">
+        <h2>Τι κρατάμε εμείς</h2>
+        <p>Τίποτα. Η εφαρμογή δεν έχει λογαριασμούς χρηστών και δεν στέλνει δεδομένα σε δικό μας server. Τα ονόματα των παικτών και οι ρυθμίσεις αποθηκεύονται μόνο στη συσκευή σου και σβήνονται όταν απεγκαταστήσεις την εφαρμογή ή καθαρίσεις τα δεδομένα της. Τις αγορές σου τις καταγράφει το Google Play, ώστε να τις επαναφέρεις σε νέα συσκευή.</p>
+      </div>
+    </article>
 
-<section id="en" lang="en">
-<h1>PALERMO — Privacy Policy</h1>
-<p class="meta">Effective 1 November 2026 · Developer: Zent · Contact: <a href="mailto:bonzaras10@gmail.com">bonzaras10@gmail.com</a></p>
+    <article class="article">
+      <div class="article-no">02</div>
+      <div class="article-body">
+        <h2>Διαφημίσεις (Google AdMob)</h2>
+        <p>Η δωρεάν έκδοση δείχνει διαφημίσεις μέσω του Google AdMob. Το SDK της Google συλλέγει αυτόματα και μοιράζεται με την Google:</p>
+        <ul>
+          <li>το αναγνωριστικό διαφήμισης (Advertising ID) και το App set ID της συσκευής,</li>
+          <li>τη διεύθυνση IP, από την οποία βγαίνει κατά προσέγγιση η τοποθεσία,</li>
+          <li>αλληλεπιδράσεις με την εφαρμογή και τις διαφημίσεις (π.χ. ανοίγματα, πατήματα, προβολές),</li>
+          <li>διαγνωστικά στοιχεία απόδοσης (π.χ. χρόνος εκκίνησης, κολλήματα).</li>
+        </ul>
+        <p>Τα δεδομένα χρησιμοποιούνται για την προβολή και τη μέτρηση διαφημίσεων, για στατιστικά και για την πρόληψη απάτης, και μεταφέρονται κρυπτογραφημένα (TLS).</p>
+        <div class="callout">Στον Ευρωπαϊκό Οικονομικό Χώρο, στο Ηνωμένο Βασίλειο και στην Ελβετία η εφαρμογή ζητά πρώτα τη συναίνεσή σου με τη φόρμα της Google. Μπορείς να την αλλάξεις όποτε θέλεις από τις Ρυθμίσεις της εφαρμογής → «Επιλογές απορρήτου διαφημίσεων».</div>
+        <p>Μπορείς επίσης να μηδενίσεις ή να διαγράψεις το αναγνωριστικό διαφήμισης από τις ρυθμίσεις του Android. Δες πώς η Google χρησιμοποιεί τα δεδομένα: <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">policies.google.com/technologies/partner-sites</a>.</p>
+        <p>Όποιος αγοράσει Premium, Ultimate ή «Χωρίς διαφημίσεις» δεν βλέπει διαφημίσεις, οπότε το AdMob δεν φορτώνει διαφημίσεις για αυτόν.</p>
+      </div>
+    </article>
 
-<p>PALERMO ("One night in Palermo") is a party game played on a single phone. This policy explains what data the app uses and who processes it.</p>
+    <article class="article">
+      <div class="article-no">03</div>
+      <div class="article-body">
+        <h2>Αγορές</h2>
+        <p>Οι αγορές γίνονται μέσω του Google Play. Εμείς δεν βλέπουμε ούτε κρατάμε στοιχεία πληρωμής. Ισχύει η <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">πολιτική απορρήτου της Google</a>.</p>
+      </div>
+    </article>
 
-<h2>What we keep</h2>
-<p>Nothing. The app has no user accounts and sends no data to a server of ours. Player names and settings are stored only on your device and are deleted when you uninstall the app or clear its data. Your purchases are recorded by Google Play, so you can restore them on a new device.</p>
+    <article class="article">
+      <div class="article-no">04</div>
+      <div class="article-body">
+        <h2>Αναφορές σφαλμάτων</h2>
+        <p>Αν η εφαρμογή κλείσει απότομα, η περιγραφή του σφάλματος αποθηκεύεται μόνο στη συσκευή σου και σου εμφανίζεται στο επόμενο άνοιγμα. Δεν στέλνεται πουθενά, εκτός αν την αντιγράψεις και μας τη στείλεις εσύ.</p>
+      </div>
+    </article>
 
-<h2>Ads (Google AdMob)</h2>
-<p>The free version shows ads through Google AdMob. Google's SDK automatically collects and shares with Google:</p>
-<ul>
-  <li>the device's advertising ID and app set ID,</li>
-  <li>the IP address, from which an approximate location can be derived,</li>
-  <li>interactions with the app and its ads (e.g. launches, taps, views),</li>
-  <li>performance diagnostics (e.g. launch time, hangs).</li>
-</ul>
-<p>This data is used to serve and measure ads, for analytics and for fraud prevention, and is encrypted in transit (TLS). In the European Economic Area, the UK and Switzerland the app first asks for your consent through Google's form. You can change it at any time in the app's Settings → "Ad privacy options". You can also reset or delete your advertising ID in Android settings. How Google uses data: <a href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</a>.</p>
-<p>Anyone who buys Premium, Ultimate or "No ads" sees no ads, so AdMob loads no ads for them.</p>
+    <article class="article">
+      <div class="article-no">05</div>
+      <div class="article-body">
+        <h2>Παιδιά</h2>
+        <p>Η εφαρμογή δεν απευθύνεται σε παιδιά κάτω των 13 ετών και δεν συλλέγουμε εν γνώσει μας δεδομένα παιδιών.</p>
+      </div>
+    </article>
 
-<h2>Purchases</h2>
-<p>Purchases are handled by Google Play. We never see or store payment details. <a href="https://policies.google.com/privacy">Google's privacy policy</a> applies.</p>
+    <article class="article">
+      <div class="article-no">06</div>
+      <div class="article-body">
+        <h2>Τα δικαιώματά σου</h2>
+        <p>Επειδή δεν κρατάμε δεδομένα σου, για τα δεδομένα διαφημίσεων απευθύνσου στην Google ή χρησιμοποίησε τις επιλογές παραπάνω. Για κάθε ερώτηση γράψε μας στο <a href="mailto:bonzaras10@gmail.com">bonzaras10@gmail.com</a>.</p>
+      </div>
+    </article>
 
-<h2>Crash reports</h2>
-<p>If the app closes unexpectedly, the error description is saved only on your device and shown to you on the next launch. It is sent nowhere unless you copy it and send it to us yourself.</p>
+    <article class="article">
+      <div class="article-no">07</div>
+      <div class="article-body">
+        <h2>Αλλαγές</h2>
+        <p>Αν αλλάξει κάτι, θα ενημερώσουμε αυτή τη σελίδα και την ημερομηνία στην αρχή της.</p>
+      </div>
+    </article>
 
-<h2>Children</h2>
-<p>The app is not directed at children under 13 and we do not knowingly collect children's data.</p>
+  </section>
 
-<h2>Your rights</h2>
-<p>Since we hold no data about you, for ad data please contact Google or use the options above. For any question, email us at <a href="mailto:bonzaras10@gmail.com">bonzaras10@gmail.com</a>.</p>
+  <hr class="lang-sep">
 
-<h2>Changes</h2>
-<p>If anything changes, we will update this page and the date at its top.</p>
-</section>
-</main>
+  <!-- ============ ENGLISH ============ -->
+  <section id="en" class="lang-section" lang="en">
+
+    <div class="section-header">
+      <span>English</span>
+      <span>02 / 02</span>
+    </div>
+
+    <div class="intro">
+      <span class="meta-line">Effective 1 November 2026 · Developer: Zent</span>
+      PALERMO ("One night in Palermo") is a party game played on a single phone. This policy explains what data the app uses and who processes it. Contact: <a href="mailto:bonzaras10@gmail.com">bonzaras10@gmail.com</a>
+    </div>
+
+    <article class="article">
+      <div class="article-no">01</div>
+      <div class="article-body">
+        <h2>What we keep</h2>
+        <p>Nothing. The app has no user accounts and sends no data to a server of ours. Player names and settings are stored only on your device and are deleted when you uninstall the app or clear its data. Your purchases are recorded by Google Play, so you can restore them on a new device.</p>
+      </div>
+    </article>
+
+    <article class="article">
+      <div class="article-no">02</div>
+      <div class="article-body">
+        <h2>Ads (Google AdMob)</h2>
+        <p>The free version shows ads through Google AdMob. Google's SDK automatically collects and shares with Google:</p>
+        <ul>
+          <li>the device's advertising ID and app set ID,</li>
+          <li>the IP address, from which an approximate location can be derived,</li>
+          <li>interactions with the app and its ads (e.g. launches, taps, views),</li>
+          <li>performance diagnostics (e.g. launch time, hangs).</li>
+        </ul>
+        <p>This data is used to serve and measure ads, for analytics and for fraud prevention, and is encrypted in transit (TLS).</p>
+        <div class="callout">In the European Economic Area, the UK and Switzerland the app first asks for your consent through Google's form. You can change it at any time in the app's Settings → "Ad privacy options".</div>
+        <p>You can also reset or delete your advertising ID in Android settings. How Google uses data: <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">policies.google.com/technologies/partner-sites</a>.</p>
+        <p>Anyone who buys Premium, Ultimate or "No ads" sees no ads, so AdMob loads no ads for them.</p>
+      </div>
+    </article>
+
+    <article class="article">
+      <div class="article-no">03</div>
+      <div class="article-body">
+        <h2>Purchases</h2>
+        <p>Purchases are handled by Google Play. We never see or store payment details. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's privacy policy</a> applies.</p>
+      </div>
+    </article>
+
+    <article class="article">
+      <div class="article-no">04</div>
+      <div class="article-body">
+        <h2>Crash reports</h2>
+        <p>If the app closes unexpectedly, the error description is saved only on your device and shown to you on the next launch. It is sent nowhere unless you copy it and send it to us yourself.</p>
+      </div>
+    </article>
+
+    <article class="article">
+      <div class="article-no">05</div>
+      <div class="article-body">
+        <h2>Children</h2>
+        <p>The app is not directed at children under 13 and we do not knowingly collect children's data.</p>
+      </div>
+    </article>
+
+    <article class="article">
+      <div class="article-no">06</div>
+      <div class="article-body">
+        <h2>Your rights</h2>
+        <p>Since we hold no data about you, for ad data please contact Google or use the options above. For any question, email us at <a href="mailto:bonzaras10@gmail.com">bonzaras10@gmail.com</a>.</p>
+      </div>
+    </article>
+
+    <article class="article">
+      <div class="article-no">07</div>
+      <div class="article-body">
+        <h2>Changes</h2>
+        <p>If anything changes, we will update this page and the date at its top.</p>
+      </div>
+    </article>
+
+  </section>
+
+  <div class="signature">
+    <div>
+      <div class="sig-name">Zent</div>
+      <p class="sig-role">Authorized issuer · 2026</p>
+    </div>
+    <p class="footnote">Filed under Doc. 07-PP.<br>All names withheld.</p>
+  </div>
+
+  <div class="corner-mark" aria-hidden="true"></div>
+</div>
+
 </body>
 </html>
