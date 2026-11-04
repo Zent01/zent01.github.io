@@ -1,580 +1,561 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#090707">
-
-<title>PALERMO · Zent</title>
-
+<meta name="theme-color" content="#e8e1d3">
+<title>PALERMO — Case File No. 07</title>
 <meta name="description" content="PALERMO: One night in Palermo. The classic Mafia party game, with the narrator inside your phone.">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Oswald:wght@400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+:root{
+  --paper:#e8e1d3;
+  --paper-dark:#ddd4c2;
+  --ink:#1c1712;
+  --ink-soft:#4a4136;
+  --ink-dim:#8a7d6b;
+  --red:#9b1c22;
+  --line:rgba(28,23,18,.18);
+  --line-strong:rgba(28,23,18,.4);
 
-:root {
-  --bg: #090707;
-  --fg: #f4ead7;
-  --muted: #9e9182;
-  --gold: #c2a16b;
-  --gold2: #ead09b;
-  --red: #a91f2b;
-  --line: rgba(194,161,107,.35);
+  --f-type:'Special Elite','Courier New',monospace;
+  --f-mono:'Courier Prime','Courier New',monospace;
+  --f-cond:'Oswald','Arial Narrow',sans-serif;
 }
 
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:#1a1510;
+  color:var(--ink);
+  font-family:var(--f-mono);
+  font-size:15px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:clamp(16px,4vw,48px) clamp(12px,3vw,32px);
 }
 
-html, body {
-  min-height: 100%;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  overflow-x: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 35px 18px;
-
-  color: var(--fg);
-  background:
-    radial-gradient(ellipse at 50% 42%, rgba(91,17,20,.24), transparent 48%),
-    radial-gradient(ellipse at 15% 15%, rgba(116,57,25,.12), transparent 40%),
-    linear-gradient(145deg, #100b09, #080606 65%, #160909);
-
-  font-family: 'Playfair Display', Georgia, serif;
-}
-
-/* Cinematic vignette */
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 5;
-
-  background:
-    radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,.68) 100%),
-    linear-gradient(90deg, rgba(0,0,0,.3), transparent 30%, transparent 70%, rgba(0,0,0,.3));
-}
-
-/* Film grain */
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: -50%;
-  z-index: 6;
-  pointer-events: none;
-  opacity: .11;
-
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-
-  animation: grain .3s steps(2) infinite;
-}
-
-@keyframes grain {
-  0% { transform: translate(0,0); }
-  25% { transform: translate(-2%,2%); }
-  50% { transform: translate(2%,-1%); }
-  75% { transform: translate(-1%,-2%); }
-  100% { transform: translate(1%,1%); }
-}
-
-/* Rain */
-
-.rain {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  opacity: .24;
-
+/* the document itself */
+.doc{
+  position:relative;
+  width:100%;
+  max-width:820px;
+  background:var(--paper);
   background-image:
-    repeating-linear-gradient(
-      105deg,
-      transparent 0px,
-      transparent 48px,
-      rgba(210,205,190,.13) 49px,
-      transparent 50px
-    );
-
-  background-size: 120px 250px;
-  animation: rainfall .65s linear infinite;
+    radial-gradient(circle at 20% 30%, rgba(155,28,34,.04) 0%, transparent 22%),
+    radial-gradient(circle at 80% 70%, rgba(28,23,18,.05) 0%, transparent 30%),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(28,23,18,.012) 2px, rgba(28,23,18,.012) 3px);
+  box-shadow:
+    0 2px 0 rgba(0,0,0,.1),
+    0 30px 80px -20px rgba(0,0,0,.8),
+    0 0 0 1px rgba(28,23,18,.15);
+  padding:clamp(28px,6vw,64px) clamp(22px,6vw,72px) clamp(36px,6vw,64px);
 }
 
-@keyframes rainfall {
-  from { background-position: 0 0; }
-  to { background-position: -40px 250px; }
+/* torn paper edge — top */
+.doc::before{
+  content:"";
+  position:absolute;
+  top:-6px;left:0;right:0;
+  height:8px;
+  background:
+    linear-gradient(135deg, transparent 50%, var(--paper) 51%) 0 0/12px 12px repeat-x,
+    linear-gradient(45deg, var(--paper) 50%, transparent 51%) 0 0/12px 12px repeat-x;
+  transform:rotate(180deg);
 }
 
-/* Red ambient light */
-
-.ambient {
-  position: fixed;
-  width: 550px;
-  height: 550px;
-  border-radius: 50%;
-  background: rgba(125,14,22,.13);
-  filter: blur(100px);
-  pointer-events: none;
-  animation: pulse 7s ease-in-out infinite alternate;
+/* red classified stamp */
+.stamp{
+  position:absolute;
+  top:clamp(28px,6vw,64px);
+  right:clamp(22px,6vw,72px);
+  font-family:var(--f-cond);
+  font-weight:600;
+  font-size:11px;
+  letter-spacing:.4em;
+  text-transform:uppercase;
+  color:var(--red);
+  border:2px solid var(--red);
+  padding:8px 14px 7px 17px;
+  transform:rotate(6deg);
+  opacity:.82;
+  z-index:3;
+  mix-blend-mode:multiply;
+  box-shadow:inset 0 0 0 1px rgba(155,28,34,.25);
+}
+.stamp::after{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  background:repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(155,28,34,.06) 3px, rgba(155,28,34,.06) 4px);
+  pointer-events:none;
 }
 
-@keyframes pulse {
-  from { opacity: .35; transform: scale(.85); }
-  to { opacity: .8; transform: scale(1.15); }
+/* language switch — typed margin note */
+.lang{
+  position:fixed;
+  bottom:16px;right:16px;
+  z-index:40;
+  display:flex;
+  gap:0;
+  background:var(--paper);
+  border:1px solid var(--line-strong);
+  font-family:var(--f-cond);
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  box-shadow:0 8px 24px -8px rgba(0,0,0,.6);
+}
+.lang button{
+  font:inherit;
+  color:var(--ink-dim);
+  background:none;
+  border:0;
+  padding:8px 12px;
+  cursor:pointer;
+  transition:background .2s,color .2s;
+}
+.lang button + button{border-left:1px solid var(--line)}
+.lang button:hover{color:var(--ink);background:var(--paper-dark)}
+.lang button[aria-pressed="true"]{
+  color:var(--paper);
+  background:var(--ink);
 }
 
-/* Main */
+/* header strip */
+.head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:16px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--line-strong);
+  font-family:var(--f-cond);
+  font-size:10.5px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  margin-bottom:clamp(28px,5vw,44px);
+}
+.head span:first-child{font-weight:600;color:var(--ink)}
 
-main {
-  position: relative;
-  z-index: 10;
-  width: 100%;
-  max-width: 620px;
-  padding: 65px 25px 45px;
-  text-align: center;
+/* file number grid */
+.fileno{
+  display:grid;
+  grid-template-columns:auto 1fr auto 1fr;
+  gap:0 clamp(12px,3vw,28px);
+  margin-bottom:clamp(32px,6vw,56px);
+  font-family:var(--f-mono);
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  align-items:baseline;
+}
+.fileno .k{color:var(--ink-dim);white-space:nowrap}
+.fileno .v{
+  color:var(--ink);
+  font-weight:700;
+  border-bottom:1px dotted var(--line-strong);
+  padding-bottom:2px;
+}
+.fileno .v.red{color:var(--red)}
 
-  animation: entrance 1.5s ease both;
+/* main heading */
+h1{
+  font-family:var(--f-cond);
+  font-weight:600;
+  font-size:clamp(3.2rem,15vw,8.5rem);
+  line-height:.82;
+  letter-spacing:-.01em;
+  text-transform:uppercase;
+  margin:0;
+  color:var(--ink);
+  position:relative;
 }
 
-@keyframes entrance {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-    filter: blur(8px);
+/* typewriter sub */
+.eyebrow{
+  font-family:var(--f-type);
+  font-size:clamp(13px,1.6vw,15px);
+  letter-spacing:.06em;
+  color:var(--ink-soft);
+  margin:0 0 clamp(8px,1.4vw,12px);
+}
+.eyebrow::before{content:"// ";color:var(--red);font-weight:700}
+
+/* the big rule under title */
+hr.big{
+  border:0;
+  border-top:3px double var(--ink);
+  margin:clamp(20px,3.4vw,32px) 0 clamp(22px,4vw,32px);
+  position:relative;
+}
+hr.big::after{
+  content:"§";
+  position:absolute;
+  top:-.62em;left:50%;
+  transform:translateX(-50%);
+  background:var(--paper);
+  padding:0 12px;
+  font-family:var(--f-cond);
+  font-size:18px;
+  color:var(--red);
+  font-weight:600;
+}
+
+/* two-column body — like a typed statement */
+.statement{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(24px,5vw,48px);
+  margin-bottom:clamp(32px,6vw,52px);
+}
+
+.lede{
+  font-family:var(--f-mono);
+  font-weight:700;
+  font-size:clamp(1.05rem,2vw,1.28rem);
+  line-height:1.5;
+  color:var(--ink);
+  margin:0;
+  grid-column:1/-1;
+}
+.lede em{
+  font-style:italic;
+  color:var(--red);
+  font-weight:700;
+}
+
+.body-text{
+  font-family:var(--f-mono);
+  font-size:14px;
+  line-height:1.75;
+  color:var(--ink-soft);
+  margin:0;
+}
+
+/* section label */
+.section-label{
+  font-family:var(--f-cond);
+  font-weight:600;
+  font-size:10.5px;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  margin:0 0 10px;
+  padding-bottom:6px;
+  border-bottom:1px solid var(--line);
+}
+
+/* contact — typed line with dotted leader */
+.contact-block{
+  margin-top:clamp(28px,5vw,44px);
+}
+.contact-row{
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  font-family:var(--f-mono);
+  font-size:13.5px;
+  flex-wrap:wrap;
+}
+.contact-row .label{
+  color:var(--ink-dim);
+  text-transform:uppercase;
+  font-size:10px;
+  letter-spacing:.16em;
+  white-space:nowrap;
+}
+.contact-row .leader{
+  flex:1;
+  min-width:20px;
+  border-bottom:1px dotted var(--line-strong);
+  height:1em;
+  margin:0 4px;
+}
+.contact-row a{
+  color:var(--ink);
+  text-decoration:none;
+  font-weight:700;
+  border-bottom:1px solid var(--ink);
+  padding-bottom:1px;
+  transition:color .2s,border-color .2s;
+}
+.contact-row a:hover{color:var(--red);border-color:var(--red)}
+
+.copy{
+  font-family:var(--f-cond);
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  background:none;
+  border:1px solid var(--line-strong);
+  padding:4px 9px;
+  cursor:pointer;
+  transition:all .2s;
+}
+.copy:hover{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+.copy.done{color:var(--paper);background:var(--red);border-color:var(--red)}
+
+/* signature / footer */
+.signature{
+  margin-top:clamp(36px,7vw,60px);
+  padding-top:clamp(20px,3vw,28px);
+  border-top:1px solid var(--line-strong);
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:clamp(16px,4vw,32px);
+  align-items:end;
+}
+.sig-name{
+  font-family:var(--f-type);
+  font-size:clamp(22px,3vw,30px);
+  color:var(--ink);
+  transform:rotate(-2deg);
+  display:inline-block;
+  border-bottom:1px solid var(--line-strong);
+  padding-bottom:4px;
+  line-height:1.2;
+  margin-bottom:8px;
+}
+.sig-role{
+  font-family:var(--f-cond);
+  font-size:10px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  margin:0;
+}
+.footnote{
+  font-family:var(--f-mono);
+  font-style:italic;
+  font-size:11.5px;
+  line-height:1.6;
+  color:var(--ink-dim);
+  text-align:right;
+  margin:0;
+  max-width:26ch;
+}
+
+/* nav link styled as file reference */
+.fileref{
+  font-family:var(--f-mono);
+  font-size:12px;
+  color:var(--ink);
+  text-decoration:none;
+  border-bottom:1px solid var(--line-strong);
+  padding-bottom:1px;
+  transition:color .2s,border-color .2s;
+}
+.fileref:hover{color:var(--red);border-color:var(--red)}
+
+/* red corner mark */
+.corner-mark{
+  position:absolute;
+  bottom:0;left:0;
+  width:60px;height:60px;
+  overflow:hidden;
+  pointer-events:none;
+}
+.corner-mark::before{
+  content:"";
+  position:absolute;
+  bottom:-1px;left:-1px;
+  width:60px;height:60px;
+  border-left:2px solid var(--red);
+  border-bottom:2px solid var(--red);
+  opacity:.4;
+}
+
+/* ---- responsive ---- */
+@media(max-width:640px){
+  .statement{grid-template-columns:1fr;gap:22px}
+  .fileno{grid-template-columns:auto 1fr;gap:8px 16px}
+  .stamp{
+    position:static;
+    display:inline-block;
+    margin-bottom:20px;
+    transform:rotate(-3deg);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
+  .signature{grid-template-columns:1fr}
+  .footnote{text-align:left}
+  h1{letter-spacing:-.02em}
 }
 
-.pre {
-  color: var(--gold);
-  font-family: 'Cinzel', serif;
-  font-size: .78rem;
-  letter-spacing: .48em;
-  text-transform: uppercase;
-  margin: 0 0 17px;
-  animation: fade 2s ease both;
-}
-
-h1 {
-  position: relative;
-  font-family: 'Cinzel', serif;
-  font-size: clamp(3.2rem, 13vw, 6.2rem);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: .13em;
-  margin: 0;
-
-  color: var(--gold2);
-
-  background: linear-gradient(
-    110deg,
-    #8b683d,
-    #f5e1b5,
-    #b38a4c,
-    #f7e7c6,
-    #947044
-  );
-
-  background-size: 250% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  animation: goldshine 8s linear infinite;
-}
-
-@keyframes goldshine {
-  to { background-position: 250% center; }
-}
-
-.subtitle {
-  color: #c5b6a0;
-  font-size: clamp(1rem, 3vw, 1.2rem);
-  letter-spacing: .025em;
-  margin-top: 23px;
-  line-height: 1.8;
-}
-
-.en {
-  color: var(--muted);
-  font-family: Georgia, serif;
-  font-style: italic;
-  font-size: .94rem;
-  margin-top: 7px;
-}
-
-.rule {
-  width: 160px;
-  height: 1px;
-  margin: 28px auto;
-  position: relative;
-
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--gold),
-    transparent
-  );
-}
-
-.rule::after {
-  content: "◆";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-  padding: 0 12px;
-  color: var(--red);
-  background: #100908;
-  font-size: 11px;
-  text-shadow: 0 0 15px var(--red);
-}
-
-/* Atmospheric label */
-
-.stamp {
-  display: inline-block;
-  color: #a88c64;
-  border: 1px solid rgba(169,31,43,.55);
-  padding: 7px 18px;
-  margin-top: 28px;
-
-  font-family: 'Cinzel', serif;
-  font-size: .68rem;
-  letter-spacing: .28em;
-  text-transform: uppercase;
-
-  box-shadow: 0 0 25px rgba(169,31,43,.12);
-}
-
-/* Navigation */
-
-nav {
-  margin-top: 37px;
-}
-
-nav a {
-  display: inline-block;
-  color: var(--fg);
-  text-decoration: none;
-
-  border: 1px solid var(--line);
-  padding: 12px 23px;
-
-  font-family: 'Cinzel', serif;
-  font-size: .77rem;
-  letter-spacing: .1em;
-
-  transition: .35s ease;
-  background: rgba(255,255,255,.015);
-}
-
-nav a:hover {
-  color: var(--gold2);
-  border-color: var(--gold);
-  background: rgba(194,161,107,.08);
-  box-shadow: 0 0 30px rgba(194,161,107,.12);
-  transform: translateY(-3px);
-}
-
-/* Contact */
-
-.contact {
-  margin-top: 45px;
-}
-
-.contact .lbl {
-  color: var(--muted);
-  font-family: 'Cinzel', serif;
-  font-size: .68rem;
-  letter-spacing: .3em;
-  margin-bottom: 14px;
-}
-
-.mail {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-
-  border: 1px solid var(--line);
-  padding: 6px 7px 6px 17px;
-  max-width: 100%;
-
-  background: rgba(0,0,0,.28);
-  transition: .3s;
-}
-
-.mail:hover {
-  border-color: var(--gold);
-  box-shadow: 0 0 25px rgba(194,161,107,.08);
-}
-
-.mail a {
-  color: var(--gold2);
-  text-decoration: none;
-  font-size: .9rem;
-  overflow-wrap: anywhere;
-}
-
-.mail button {
-  color: var(--fg);
-  background: #261313;
-  border: 1px solid rgba(169,31,43,.5);
-  padding: 7px 13px;
-  font: inherit;
-  font-size: .76rem;
-  cursor: pointer;
-  transition: .3s;
-}
-
-.mail button:hover {
-  background: #63151d;
-  border-color: var(--red);
-}
-
-.mail button.done {
-  background: #741b24;
-  border-color: var(--red);
-}
-
-/* Footer */
-
-footer {
-  margin-top: 55px;
-  color: #74685c;
-  font-family: 'Cinzel', serif;
-  font-size: .68rem;
-  letter-spacing: .2em;
-}
-
-/* Language switch */
-
-.lang {
-  position: fixed;
-  top: 18px;
-  right: 18px;
-  z-index: 20;
-  display: flex;
-  border: 1px solid var(--line);
-  background: rgba(0,0,0,.35);
-}
-
-.lang button {
-  font-family: 'Cinzel', serif;
-  font-size: .7rem;
-  letter-spacing: .14em;
-  color: var(--muted);
-  background: transparent;
-  border: 0;
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: .3s;
-}
-
-.lang button + button {
-  border-left: 1px solid var(--line);
-}
-
-.lang button:hover {
-  color: var(--gold2);
-}
-
-.lang button[aria-pressed="true"] {
-  color: var(--fg);
-  background: rgba(169,31,43,.35);
-}
-
-/* Mobile */
-
-@media(max-width: 480px) {
-  main {
-    padding: 40px 10px;
-  }
-
-  .pre {
-    letter-spacing: .32em;
-  }
-
-  .mail {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-}
-
-/* Accessibility */
-
-@media(prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
-  }
+@media(prefers-reduced-motion:reduce){
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important}
 }
 </style>
 </head>
 
 <body>
 
-<div class="rain"></div>
-<div class="ambient"></div>
+<div class="doc">
 
-<div class="lang" role="group" aria-label="Language">
-  <button type="button" data-lang="el" aria-pressed="false">Ελληνικά</button>
-  <button type="button" data-lang="en" aria-pressed="true">English</button>
-</div>
+  <div class="stamp">Classified</div>
 
-<main>
+  <div class="head">
+    <span>Zent · Interactive Division</span>
+    <span>File No. 07 / MMXXVI</span>
+  </div>
 
-  <p class="pre" data-t="pre">One night in</p>
+  <div class="fileno">
+    <span class="k">Subject:</span>
+    <span class="v">Palermo</span>
+    <span class="k">Status:</span>
+    <span class="v red">Unresolved</span>
+  </div>
+
+  <p class="eyebrow" data-t="pre">One night in</p>
 
   <h1>PALERMO</h1>
 
-  <div class="rule"></div>
+  <hr class="big">
 
-  <p class="subtitle" data-t="subtitle">
-    Every city hides its secrets.<br>
-    Every night has its guilty ones.
-  </p>
+  <div class="statement">
+    <p class="lede" data-t="subtitle">
+      Every city hides its secrets.<br>
+      Every night has its <em>guilty ones</em>.
+    </p>
 
-  <p class="en" data-t="tagline">
-    The classic Mafia party game, with the narrator inside your phone.
-  </p>
+    <div>
+      <p class="section-label" data-t="brief">Brief</p>
+      <p class="body-text" data-t="tagline">
+        The classic Mafia party game, with the narrator inside your phone.
+      </p>
+    </div>
 
-  <div class="stamp">
-    Trust no one · Speak carefully
-  </div>
-
-  <nav>
-    <a href="privacy.html#en" id="privacy" data-t="privacy">
-      Privacy Policy
-    </a>
-  </nav>
-
-  <div class="contact">
-    <div class="lbl" data-t="contact">Contact</div>
-
-    <div class="mail">
-      <a href="mailto:bonzaras10@gmail.com">
-        bonzaras10@gmail.com
-      </a>
-
-      <button type="button" id="copy" data-t="copy">
-        Copy
-      </button>
+    <div>
+      <p class="section-label" data-t="directive">Directive</p>
+      <p class="body-text">
+        Trust no one. Speak carefully. The truth is decided before dawn.
+      </p>
     </div>
   </div>
 
-  <footer>
-    © 2026 ZENT · AN OFFER YOU CAN'T REFUSE
-  </footer>
+  <div class="contact-block">
+    <p class="section-label" data-t="contact">Contact</p>
+    <div class="contact-row">
+      <span class="label">Send to:</span>
+      <a href="mailto:bonzaras10@gmail.com">bonzaras10@gmail.com</a>
+      <span class="leader"></span>
+      <button type="button" class="copy" id="copy" data-t="copy">Copy</button>
+    </div>
+  </div>
 
-</main>
+  <div class="contact-block">
+    <p class="section-label" data-t="legal">Legal</p>
+    <a class="fileref" href="privacy.html#en" id="privacy" data-t="privacy">Privacy Policy</a>
+  </div>
+
+  <div class="signature">
+    <div>
+      <div class="sig-name">Zent</div>
+      <p class="sig-role">Authorized issuer · 2026</p>
+    </div>
+    <p class="footnote">An offer you can't refuse.<br>All names withheld.</p>
+  </div>
+
+  <div class="corner-mark" aria-hidden="true"></div>
+</div>
+
+<div class="lang" role="group" aria-label="Language">
+  <button type="button" data-lang="el" aria-pressed="false">GR</button>
+  <button type="button" data-lang="en" aria-pressed="true">EN</button>
+</div>
 
 <script>
-(function () {
-  var T = {
-    en: {
-      pre: 'One night in',
-      subtitle: 'Every city hides its secrets.<br>Every night has its guilty ones.',
-      tagline: 'The classic Mafia party game, with the narrator inside your phone.',
-      privacy: 'Privacy Policy',
-      contact: 'Contact',
-      copy: 'Copy',
-      copied: 'Copied ✓',
-      description: 'PALERMO: One night in Palermo. The classic Mafia party game, with the narrator inside your phone.'
+(function(){
+  var T={
+    en:{
+      pre:'One night in',
+      subtitle:'Every city hides its secrets.<br>Every night has its <em>guilty ones</em>.',
+      tagline:'The classic Mafia party game, with the narrator inside your phone.',
+      brief:'Brief',
+      directive:'Directive',
+      privacy:'Privacy Policy',
+      contact:'Contact',
+      legal:'Legal',
+      copy:'Copy',
+      copied:'Copied ✓',
+      description:'PALERMO: One night in Palermo. The classic Mafia party game, with the narrator inside your phone.'
     },
-    el: {
-      pre: 'Μια νύχτα στο',
-      subtitle: 'Κάθε πόλη κρύβει τα μυστικά της.<br>Κάθε νύχτα έχει τους ενόχους της.',
-      tagline: 'Το κλασικό παιχνίδι Μαφίας για παρέες, με τον αφηγητή μέσα στο κινητό.',
-      privacy: 'Πολιτική απορρήτου',
-      contact: 'Επικοινωνία',
-      copy: 'Αντιγραφή',
-      copied: 'Αντιγράφηκε ✓',
-      description: 'PALERMO: Μια νύχτα στο Παλέρμο. Το κλασικό παιχνίδι Μαφίας για παρέες, με τον αφηγητή μέσα στο κινητό.'
+    el:{
+      pre:'Μια νύχτα στο',
+      subtitle:'Κάθε πόλη κρύβει τα μυστικά της.<br>Κάθε νύχτα έχει τους <em>ενόχους</em> της.',
+      tagline:'Το κλασικό παιχνίδι Μαφίας για παρέες, με τον αφηγητή μέσα στο κινητό.',
+      brief:'Σύνοψη',
+      directive:'Οδηγία',
+      privacy:'Πολιτική απορρήτου',
+      contact:'Επικοινωνία',
+      legal:'Νομικά',
+      copy:'Αντιγραφή',
+      copied:'Αντιγράφηκε ✓',
+      description:'PALERMO: Μια νύχτα στο Παλέρμο. Το κλασικό παιχνίδι Μαφίας για παρέες, με τον αφηγητή μέσα στο κινητό.'
     }
   };
-  var KEY = 'palermo-lang';
-  var lang = 'en';
-  try {
-    var saved = localStorage.getItem(KEY);
-    if (saved === 'el' || saved === 'en') lang = saved;
-  } catch (e) {}
+  var KEY='palermo-lang',lang='en';
+  try{var s=localStorage.getItem(KEY);if(s==='el'||s==='en')lang=s;}catch(e){}
 
-  function apply(l) {
-    lang = l;
-    var d = T[l];
-    document.documentElement.lang = l;
-    Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function (el) {
-      var k = el.getAttribute('data-t');
-      if (k === 'subtitle') el.innerHTML = d[k]; else el.textContent = d[k];
+  function apply(l){
+    lang=l;var d=T[l];
+    document.documentElement.lang=l;
+    document.querySelectorAll('[data-t]').forEach(function(el){
+      var k=el.getAttribute('data-t');
+      if(k==='subtitle')el.innerHTML=d[k];else el.textContent=d[k];
     });
-    document.getElementById('privacy').setAttribute('href', 'privacy.html#' + l);
-    var meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', d.description);
-    Array.prototype.forEach.call(document.querySelectorAll('.lang button'), function (b) {
-      b.setAttribute('aria-pressed', b.getAttribute('data-lang') === l ? 'true' : 'false');
+    document.getElementById('privacy').setAttribute('href','privacy.html#'+l);
+    var m=document.querySelector('meta[name="description"]');
+    if(m)m.setAttribute('content',d.description);
+    document.querySelectorAll('.lang button').forEach(function(b){
+      b.setAttribute('aria-pressed',b.getAttribute('data-lang')===l?'true':'false');
     });
   }
 
-  Array.prototype.forEach.call(document.querySelectorAll('.lang button'), function (b) {
-    b.addEventListener('click', function () {
-      var l = b.getAttribute('data-lang');
-      try { localStorage.setItem(KEY, l); } catch (e) {}
+  document.querySelectorAll('.lang button').forEach(function(b){
+    b.addEventListener('click',function(){
+      var l=b.getAttribute('data-lang');
+      try{localStorage.setItem(KEY,l);}catch(e){}
       apply(l);
     });
   });
   apply(lang);
 
-  var btn = document.getElementById('copy');
-  var mail = 'bonzaras10@gmail.com';
+  var btn=document.getElementById('copy');
+  var mail='bonzaras10@gmail.com';
 
-  function ok() {
-    btn.textContent = T[lang].copied;
+  function ok(){
+    btn.textContent=T[lang].copied;
     btn.classList.add('done');
-
-    setTimeout(function () {
-      btn.textContent = T[lang].copy;
+    setTimeout(function(){
+      btn.textContent=T[lang].copy;
       btn.classList.remove('done');
-    }, 1800);
+    },1600);
   }
-
-  function fallback() {
-    var ta = document.createElement('textarea');
-    ta.value = mail;
-    ta.setAttribute('readonly', '');
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-
-    document.body.appendChild(ta);
-    ta.select();
-
-    try {
-      document.execCommand('copy');
-      ok();
-    } catch (e) {}
-
+  function fallback(){
+    var ta=document.createElement('textarea');
+    ta.value=mail;ta.setAttribute('readonly','');
+    ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');ok();}catch(e){}
     document.body.removeChild(ta);
   }
-
-  btn.addEventListener('click', function () {
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(mail).then(ok, fallback);
-    } else {
-      fallback();
-    }
+  btn.addEventListener('click',function(){
+    if(navigator.clipboard&&window.isSecureContext){
+      navigator.clipboard.writeText(mail).then(ok,fallback);
+    }else{fallback();}
   });
 })();
 </script>
